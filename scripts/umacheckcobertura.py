@@ -287,15 +287,15 @@ def main(argv):
   outFileIn  = outputfile_g + "_in.shp";
   outFileOut = outputfile_g + "_out.shp";
         
-  for row in puntosIn:
-    print "IN =>";
-    print row;
-    print "<=";
+  #~ for row in puntosIn:
+    #~ print "IN =>";
+    #~ print row;
+    #~ print "<=";
     
-  for row in puntosOut:
-    print "OUT =>";
-    print row;
-    print "<=";
+  #~ for row in puntosOut:
+    #~ print "OUT =>";
+    #~ print row;
+    #~ print "<=";
               
 
         
