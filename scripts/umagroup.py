@@ -64,11 +64,8 @@ def now():
 
 def main(argv):
   global basedir_g
-  linkbudget_g   = 10.0 ;
-  outputfile_g   = "output.csv";
-  inputfile_g    = "fruticulturatodas.csv"
   try:
-    opts, args = getopt.getopt(argv,"h:i:b:o:l",["input=","basedir=","output=","linkbudget="])
+    opts, args = getopt.getopt(argv,"h:i:b:o:l",["input=","basedir=","output=","radio="])
   except getopt.GetoptError:
     print 'umagroup.py --input=<inputfile> --station=<stationlist> --basedir=<basedir> --fbudget=<fbudget>'
     sys.exit(2)
@@ -83,12 +80,13 @@ def main(argv):
     elif opt in ("-s", "--output"):
       outputfile_g = arg
     elif opt in ("-f", "--linkbudget"):
-      linkbudget_g = float(arg);
+      radio_g = float(arg);
 
 
-  print inputfile_g
-  print outputfile_g
-  print basedir_g
+  print "INPUT FILE:  " + inputfile_g
+  print "OUTPUT FILE: " + outputfile_g
+  print "BASEDIR:     " + basedir_g
+  print "RADIO :      " + str(radio_g)
   contadorPuntos = 0 ;
 
 
@@ -124,7 +122,7 @@ def main(argv):
         print "DISTANTCE: "+str(distance)
         
         
-        if ( distance < linkbudget_g ):
+        if ( distance < radio_g ):
           pass;
         else:
           flagIn = False
@@ -132,7 +130,7 @@ def main(argv):
             lon = float(cluster[0]);
             lat = float(cluster[1]);
             distance = haversine(longitudePunto,latitudePunto,lon,lat)
-            if ( distance < linkbudget_g ):
+            if ( distance < radio_g ):
               flagIn = True
             
               

@@ -163,68 +163,68 @@ def in_me(self, point):
 
 def main(argv):
   global basedir_g
-  fbudget_g      = 10.0 ;
-  fcubiertos_g   = "fcubiertos.csv";
-  fnocubiertos_g = "fnocubiertos.csv";
-  stationfile_g  = "estaciones.csv";
-  inputfile_g    = "fruticulturatodas.csv"
+  radio_g        = 10.0 ;
+
+
   try:
-    opts, args = getopt.getopt(argv,"h:i:b:s:f",["input=","basedir=","station=","fbudget="])
+    opts, args = getopt.getopt(argv,"h:i:b:s:r",["input=","output=","basedir=","station=","radio="])
   except getopt.GetoptError:
-    print 'umacheck.py --input=<inputfile> --station=<stationlist> --basedir=<basedir> --fbudget=<fbudget>'
+    print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
     sys.exit(2)
   for opt, arg in opts:
     if opt == '-h':
-      print 'umacheck.py --input=<inputfile> --station=<stationlist> --basedir=<basedir> --fbudget=<fbudget>'
+      print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
       sys.exit()
-    elif opt in ("-b", "--basedir"):
-      basedir_g = arg
     elif opt in ("-i", "--input"):
       inputfile_g = arg
+    elif opt in ("-o", "--output"):
+      outputfile_g = arg
     elif opt in ("-s", "--station"):
       stationfile_g = arg
-    elif opt in ("-f", "--fbudget"):
-      fbudget_g = float(arg);
+    elif opt in ("-r", "--radio"):
+      radio_g = float(arg);
 
   contadorPuntos = 0 ;
 
-  filename = 'myshape'
-  w = shapefile.Writer(shapefile.POINT)
 
 
-  with fiona.open(inputfile_g, 'r') as input:
-    for pt in input:
-      contadorPuntos = contadorPuntos + 1
-      point = pt['geometry']['coordinates']
-      point = Point(point[0],point[1])
+  #~ filename = 'myshape'
+  #~ w = shapefile.Writer(shapefile.POINT)
+
+
+  #~ with fiona.open(inputfile_g, 'r') as input:
+    #~ for pt in input:
+      #~ contadorPuntos = contadorPuntos + 1
+      #~ point = pt['geometry']['coordinates']
+      #~ point = Point(point[0],point[1])
       
-      #~ point = shapely.geometry.Point(-71.6272500, -33.039320 )
-      #~ print point
-      with fiona.open(stationfile_g,'r') as fiona_collection:
-        contador = 0 ;
-        flagContains = False
-        for pl in fiona_collection:
-          contador = contador + 1
-          shapefile_record = pl
+      #~ #point = shapely.geometry.Point(-71.6272500, -33.039320 )
+      #~ #print point
+      #~ with fiona.open(stationfile_g,'r') as fiona_collection:
+        #~ contador = 0 ;
+        #~ flagContains = False
+        #~ for pl in fiona_collection:
+          #~ contador = contador + 1
+          #~ shapefile_record = pl
 
-          shape = shapely.geometry.asShape( shapefile_record['geometry'] )
-          if shape.contains(point):
-            flagContains = True
-            #~ print "Found shape for point."    
-            #~ print contador
-            break
+          #~ shape = shapely.geometry.asShape( shapefile_record['geometry'] )
+          #~ if shape.contains(point):
+            #~ flagContains = True
+            print "Found shape for point."    
+            print contador
+            #~ break
 
-      if flagContains == False:
-        print pt
-        print "Punto No Encontrado"
-        #~ w.record(pt);
-        w.point(point[0],point[1])
+      #~ if flagContains == False:
+        #~ print pt
+        #~ print "Punto No Encontrado"
+        w.record(pt);
+        #~ w.point(point[0],point[1])
         
-      print "Contador Puntos= " + str(contadorPuntos)
-      if contadorPuntos > 5:
-        break;
+      #~ print "Contador Puntos= " + str(contadorPuntos)
+      #~ if contadorPuntos > 5:
+        #~ break;
 
-  w.save(filename)
+  #~ w.save(filename)
 
   print "QUIT"
 
