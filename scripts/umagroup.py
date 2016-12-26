@@ -120,7 +120,7 @@ def main(argv):
         
         distance = haversine(longitudePunto,latitudePunto,longitudePuntoAnterior,latitudePuntoAnterior)
         print "DISTANTCE: "+str(distance)
-        
+
         
         if ( distance < radio_g ):
           pass;

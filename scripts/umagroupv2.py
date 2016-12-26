@@ -33,6 +33,7 @@ import getopt
 import time
 import datetime
 import md5
+import math
 from hashlib import sha1
 from random import random
 from math import radians,sin, cos, asin, sqrt, atan2
@@ -166,7 +167,18 @@ def in_me(self, point):
     p1x,p1y = p2x,p2y
   return result
 
-def work(argv,puntosIn_p,puntosOut_p):
+
+def dist_between(shape):  
+  global x0;  global y0;  global distance  
+  x = shape.firstpoint.X;  y = shape.firstpoint.Y  
+  if x0 == 0.0 and y0 == 0.0:  
+    x0 = x; y0 = y  
+  distance = math.sqrt((x - x0)**2 + (y - y0)**2)  
+  x0 = x;  y0 = y  
+  return distance  
+  
+
+def buildCluster(argv,puntosOut_p):
   radio_g        = 10.0 ;
 
   try:
@@ -203,83 +215,36 @@ def work(argv,puntosIn_p,puntosOut_p):
     sys.exit(1);
 
   try:
-    stationfile_g
-  except NameError:
-    usage("stationfile_g");
-    sys.exit(1);
-    
-  try:
     radio_g
   except NameError:
     usage("radio_g");
     sys.exit(1);
-    
 
+  contador = 0 ;
   with fiona.open(inputfile_g, 'r') as input:
     for pt in input:
       contadorPuntos = contadorPuntos + 1
       point = pt['geometry']['coordinates']
       point = Point(point[0],point[1])
-      
-      #~ point = shapely.geometry.Point(-71.6272500, -33.039320 )
-      print point
-      with fiona.open(stationfile_g,'r') as fiona_collection:
-        contador = 0 ;
-        flagContains = False
-        for pl in fiona_collection:
-          contador = contador + 1
-          if contador % 10000 == 0:
-            print contador;
-          shapefile_record = pl
-          shape = shapely.geometry.asShape( shapefile_record['geometry'] )
-          if shape.contains(point):
-            flagContains = True
-            break
 
-      if flagContains == False:
-        #~ print pt
-        print "Punto No Encontrado"
-        puntosOut_p.append(pt);
-      else:
-        print "Punto Encontrado " + str(contador)
-        puntosIn_p.append(pt);
-        
-      if contadorPuntos > 10:
-        break;  
-      print "Contador Puntos= " + str(contadorPuntos)
+      if ( contador > 0 ):
+        distancia = math.sqrt(point.sqrDist(pointAnterior))
+      
+      contador = contador +1 ;
+      pointAnterior = point ;
+      
+
+      print point
+
+
 
         
 def main(argv):
 
-  puntosIn  = []
+    
   puntosOut = []
-
-
-  work(argv,puntosIn,puntosOut);
-
-        
-  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
-  clusterContador = 1 ;
-  with collection(outputfile_g, "w", "ESRI Shapefile", schema) as output:
-    for row in puntosOut:
-      point = row['geometry']['coordinates']
-      point = Point(point[0],point[1])
-      #~ print "===================================="
-      #~ print row;
-      #~ print "===================================="
-      name = "Cluster " + str(clusterContador)
-      output.write({
-          'properties': {
-              'name': name
-          },
-          'geometry': mapping(point)
-          })
-      clusterContador = clusterContador +1 ;
-  
-        
-  print "Saving ...."
-        
-  #~ w.save('/tmp/test.shp')    
+  buildCluster(argv,puntosOut);
+ 
         
   print "QUIT"
 
