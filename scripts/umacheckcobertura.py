@@ -225,7 +225,7 @@ def work(argv,puntosIn_p,puntosOut_p):
       print point
       with fiona.open(stationfile_g,'r') as fiona_collection:
         contador = 0 ;
-        flagContains = False
+        flagContains = True
         for pl in fiona_collection:
           contador = contador + 1
           if contador % 10000 == 0:
@@ -238,11 +238,11 @@ def work(argv,puntosIn_p,puntosOut_p):
 
       if flagContains == False:
         #~ print pt
-        print "Punto No Encontrado"
-        puntosOut_p.append(pt);
-      else:
-        print "Punto Encontrado " + str(contador)
+        print "Punto Encontrado" + str(contador)
         puntosIn_p.append(pt);
+      else:
+        print "Punto No Encontrado " + str(contador)
+        puntosOut_p.append(pt);
         
       print "Contador Puntos= " + str(contadorPuntos)
 
@@ -279,16 +279,15 @@ def main(argv):
 
   work(argv,puntosIn,puntosOut);
 
+
+  outFileIn  = outputfile_g + "_in.shp";
+  outFileOut = outputfile_g + "_out.shp";
         
   schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
   clusterContador = 1 ;
-  with collection(outputfile_g, "w", "ESRI Shapefile", schema) as output:
-    for row in puntosOut:
+  with collection(outFileIn, "w", "ESRI Shapefile", schema) as output:
+    for row in puntosIn:
       point = row['geometry']['coordinates']
-      point = Point(point[0],point[1])
-      #~ print "===================================="
-      #~ print row;
-      #~ print "===================================="
       name = "Cluster " + str(clusterContador)
       output.write({
           'properties': {
@@ -297,6 +296,22 @@ def main(argv):
           'geometry': mapping(point)
           })
       clusterContador = clusterContador +1 ;
+
+
+  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
+  clusterContador = 1 ;
+  with collection(outFileOut, "w", "ESRI Shapefile", schema) as output:
+    for row in puntosOut:
+      point = row['geometry']['coordinates']
+      name = "Cluster " + str(clusterContador)
+      output.write({
+          'properties': {
+              'name': name
+          },
+          'geometry': mapping(point)
+          })
+      clusterContador = clusterContador +1 ;
+
   
         
   print "Saving ...."
