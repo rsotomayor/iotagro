@@ -37,6 +37,12 @@ from hashlib import sha1
 from random import random
 from math import radians,sin, cos, asin, sqrt, atan2
 from fiona import collection
+import logging
+from os.path import expanduser
+from os.path import basename
+
+logger_g    = logging.getLogger("umacheckcobertura")
+
 
 def haversine(lon1, lat1, lon2, lat2):
     """
@@ -170,7 +176,7 @@ def work(argv,puntosIn_p,puntosOut_p):
   radio_g        = 10.0 ;
 
   try:
-    opts, args = getopt.getopt(argv,"h:i:b:s:r",["input=","output=","basedir=","station=","radio="])
+    opts, args = getopt.getopt(argv,"h:i:b:s:l:r",["input=","output=","basedir=","station=","logfile=","radio="])
   except getopt.GetoptError:
     print 'umacheckcobertura.py --input=<inputfile> --station=<stationlist> --output=<ouputfile>  --radio=<radio> '
     sys.exit(2)
@@ -184,8 +190,11 @@ def work(argv,puntosIn_p,puntosOut_p):
       outputfile_g = arg
     elif opt in ("-s", "--station"):
       stationfile_g = arg
+    elif opt in ("-l", "--logfile"):
+      logfile_g = arg
     elif opt in ("-r", "--radio"):
       radio_g = float(arg);
+
 
   contadorPuntos = 0 ;
 
@@ -207,7 +216,7 @@ def work(argv,puntosIn_p,puntosOut_p):
   except NameError:
     usage("stationfile_g");
     sys.exit(1);
-    
+
   try:
     radio_g
   except NameError:
@@ -230,6 +239,7 @@ def work(argv,puntosIn_p,puntosOut_p):
           contador = contador + 1
           if contador % 10000 == 0:
             print contador;
+            logger_g.info("Contador "+str(contador))
           shapefile_record = pl
           shape = shapely.geometry.asShape( shapefile_record['geometry'] )
           if shape.contains(point):
@@ -243,9 +253,11 @@ def work(argv,puntosIn_p,puntosOut_p):
       if flagContains == True:
         #~ print pt
         print "Punto Encontrado" + str(contador)
+        logger_g.info("Punto Encontrado" + str(contador));
         puntosIn_p.append(pt);
       else:
         print "Punto No Encontrado " + str(contador)
+        logger_g.info("Punto No Encontrado " + str(contador));
         puntosOut_p.append(pt);
         
       print "Contador Puntos= " + str(contadorPuntos)
@@ -257,7 +269,7 @@ def main(argv):
   puntosOut = []
 
   try:
-    opts, args = getopt.getopt(argv,"h:i:b:s:r",["input=","output=","basedir=","station=","radio="])
+    opts, args = getopt.getopt(argv,"h:i:b:s:l:r",["input=","output=","basedir=","station=","logfile=","radio="])
   except getopt.GetoptError:
     print 'umacheckcobertura.py --input=<inputfile> --station=<stationlist> --output=<ouputfile>  --radio=<radio> '
     sys.exit(2)
@@ -271,6 +283,8 @@ def main(argv):
       outputfile_g = arg
     elif opt in ("-s", "--station"):
       stationfile_g = arg
+    elif opt in ("-l", "--logfile"):
+      logfile_g = arg
     elif opt in ("-r", "--radio"):
       radio_g = float(arg);
 
@@ -281,6 +295,22 @@ def main(argv):
     usage("outputfile_g");
     sys.exit(1);
 
+
+  try:
+    logfile_g
+  except NameError:
+    usage("logfile_g");
+    sys.exit(1);
+
+
+
+  hdlr      = logging.FileHandler(logfile_g)  
+  formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+  hdlr.setFormatter(formatter)
+  logger_g.addHandler(hdlr) 
+  logger_g.setLevel(logging.INFO)
+
+  logger_g.info("Start Work");
   work(argv,puntosIn,puntosOut);
 
 
@@ -298,7 +328,6 @@ def main(argv):
     #~ print "<=";
               
 
-        
   schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
   clusterContador = 1 ;
   with collection(outFileIn, "w", "ESRI Shapefile", schema) as output:
