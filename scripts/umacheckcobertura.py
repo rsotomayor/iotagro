@@ -141,6 +141,11 @@ def prediceCobertura():
       fnocubiertos.close();
       
   print "Puntos "+ str(contadorPuntos)
+
+
+def usage(var_p):
+  print var_p + " no esta definida";
+  print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
  
 
 def in_me(self, point):
@@ -165,15 +170,14 @@ def main(argv):
   global basedir_g
   radio_g        = 10.0 ;
 
-
   try:
     opts, args = getopt.getopt(argv,"h:i:b:s:r",["input=","output=","basedir=","station=","radio="])
   except getopt.GetoptError:
-    print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
+    print 'umacheckcobertura.py --input=<inputfile> --station=<stationlist> --output=<ouputfile>  --radio=<radio> '
     sys.exit(2)
   for opt, arg in opts:
     if opt == '-h':
-      print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
+      print 'umacheckcobertura.py --input=<inputfile> -station=<stationlist> --output=<ouputfile> ---radio=<radio>'
       sys.exit()
     elif opt in ("-i", "--input"):
       inputfile_g = arg
@@ -187,45 +191,107 @@ def main(argv):
   contadorPuntos = 0 ;
 
 
+  try:
+    inputfile_g
+  except NameError:
+    usage("inputfile_g");
+    sys.exit(1);
+
+  try:
+    outputfile_g
+  except NameError:
+    usage("outputfile_g");
+    sys.exit(1);
+
+  try:
+    stationfile_g
+  except NameError:
+    usage("stationfile_g");
+    sys.exit(1);
+    
+  try:
+    radio_g
+  except NameError:
+    usage("radio_g");
+    sys.exit(1);
+    
+    
+    #~ print "well, it WASN'T defined after all!"    
+
 
   #~ filename = 'myshape'
   #~ w = shapefile.Writer(shapefile.POINT)
 
+  puntosIn  = []
+  puntosOut = []
 
-  #~ with fiona.open(inputfile_g, 'r') as input:
-    #~ for pt in input:
-      #~ contadorPuntos = contadorPuntos + 1
-      #~ point = pt['geometry']['coordinates']
-      #~ point = Point(point[0],point[1])
+
+  with fiona.open(inputfile_g, 'r') as input:
+    for pt in input:
+      contadorPuntos = contadorPuntos + 1
+      point = pt['geometry']['coordinates']
+      point = Point(point[0],point[1])
       
-      #~ #point = shapely.geometry.Point(-71.6272500, -33.039320 )
-      #~ #print point
-      #~ with fiona.open(stationfile_g,'r') as fiona_collection:
-        #~ contador = 0 ;
-        #~ flagContains = False
-        #~ for pl in fiona_collection:
-          #~ contador = contador + 1
-          #~ shapefile_record = pl
+      #~ point = shapely.geometry.Point(-71.6272500, -33.039320 )
+      print point
+      with fiona.open(stationfile_g,'r') as fiona_collection:
+        contador = 0 ;
+        flagContains = False
+        for pl in fiona_collection:
+          contador = contador + 1
+          if contador % 10000 == 0:
+            print contador;
+          shapefile_record = pl
+          shape = shapely.geometry.asShape( shapefile_record['geometry'] )
+          if shape.contains(point):
+            flagContains = True
+            break
 
-          #~ shape = shapely.geometry.asShape( shapefile_record['geometry'] )
-          #~ if shape.contains(point):
-            #~ flagContains = True
-            print "Found shape for point."    
-            print contador
-            #~ break
-
-      #~ if flagContains == False:
+      if flagContains == False:
         #~ print pt
-        #~ print "Punto No Encontrado"
-        w.record(pt);
-        #~ w.point(point[0],point[1])
+        print "Punto No Encontrado"
+        puntosOut.append(pt);
+      else:
+        print "Punto Encontrado " + str(contador)
+        puntosIn.append(pt);
         
-      #~ print "Contador Puntos= " + str(contadorPuntos)
-      #~ if contadorPuntos > 5:
-        #~ break;
+      if contadorPuntos > 3:
+        break;  
+      print "Contador Puntos= " + str(contadorPuntos)
 
-  #~ w.save(filename)
 
+  w = shapefile.Writer(shapefile.POINT)
+  w.autoBalance = 1;
+
+  sf = shapefile.Reader(inputfile_g)
+  w.fields = list(sf.fields)
+
+  #~ for rec in sf.records():
+    #~ w.records.append(rec)
+    #~ w._shapes.extend(sf.shapes())
+    
+
+  for row in puntosOut:
+    args = row
+    w.records.append(args)
+
+    print "===================================="
+    print args;
+    print "===================================="
+    
+
+  #~ for i in range(len(puntosOut)):
+    #~ print "===================================="
+    #~ point = puntosOut[i]['geometry']['coordinates']
+    #~ point = Point(point[0],point[1])
+    #~ args = row
+    #~ wgs_shp.record(*args)          
+    #~ print puntosOut[i];
+    #~ w.record(*puntosOut[i])
+    #~ print "===================================="
+
+  w.save('/tmp/test.shp')        
+        
   print "QUIT"
 
 

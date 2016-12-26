@@ -72,7 +72,7 @@
         </layer-tree-layer>
       </layer-tree-group>
     </layer-tree-group>
-    <layer-tree-group expanded="1" checked="Qt::Unchecked" name="Comunicaciones">
+    <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Comunicaciones">
       <customproperties/>
       <layer-tree-group expanded="0" checked="Qt::Unchecked" name="Estaciones Base">
         <customproperties/>
@@ -95,9 +95,9 @@
           <customproperties/>
         </layer-tree-layer>
       </layer-tree-group>
-      <layer-tree-group expanded="1" checked="Qt::Unchecked" name="Cobertura">
+      <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Cobertura">
         <customproperties/>
-        <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="cobertura2g_any20161225233152468" name="cobertura2g">
+        <layer-tree-layer expanded="1" checked="Qt::Checked" id="cobertura2g_any20161225233152468" name="cobertura2g">
           <customproperties/>
         </layer-tree-layer>
         <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="cobertura3g_any20161225233152484" name="cobertura3g">
@@ -153,7 +153,7 @@
         <customproperties/>
       </layer-tree-layer>
     </layer-tree-group>
-    <layer-tree-group expanded="0" checked="Qt::PartiallyChecked" name="Pais">
+    <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Pais">
       <customproperties/>
       <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="división_político_administrativa___distritos20161224095255527" name="división_político_administrativa___distritos">
         <customproperties/>
@@ -170,10 +170,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>494243.0997863148804754</xmin>
-      <ymin>4627009.07929077837616205</ymin>
-      <xmax>689363.11844434286467731</xmax>
-      <ymax>6739071.82904537860304117</ymax>
+      <xmin>-285416.17867433233186603</xmin>
+      <ymin>3702312.34770271740853786</ymin>
+      <xmax>4358731.22215566784143448</xmax>
+      <ymax>8186268.97411771677434444</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -190,12 +190,14 @@
       </spatialrefsys>
     </destinationsrs>
     <layer_coordinate_transform_info>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="test20161226010148005"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="3g20161224135030760"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_2G_850_region_any20161224124801341"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_3G_850_region_any20161224124801336"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="4g20161224134412166"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="comunasfruticolas20161224103318816"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="GSM_850_CHILE_any20161224124836007"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="test20161226014448256"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_850_CHILE_any20161224124836027"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_1900_CHILE_any20161224124835999"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_2G_1900_region_any20161224124801218"/>
@@ -363,7 +365,7 @@
         </legendlayer>
       </legendgroup>
     </legendgroup>
-    <legendgroup open="true" checked="Qt::Unchecked" name="Comunicaciones">
+    <legendgroup open="true" checked="Qt::PartiallyChecked" name="Comunicaciones">
       <legendgroup open="false" checked="Qt::Unchecked" name="Estaciones Base">
         <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Claro" showFeatureCount="0">
           <filegroup open="true" hidden="false">
@@ -396,10 +398,10 @@
           </filegroup>
         </legendlayer>
       </legendgroup>
-      <legendgroup open="true" checked="Qt::Unchecked" name="Cobertura">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="cobertura2g" showFeatureCount="0">
+      <legendgroup open="true" checked="Qt::PartiallyChecked" name="Cobertura">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="cobertura2g" showFeatureCount="0">
           <filegroup open="true" hidden="false">
-            <legendlayerfile isInOverview="0" layerid="cobertura2g_any20161225233152468" visible="0"/>
+            <legendlayerfile isInOverview="0" layerid="cobertura2g_any20161225233152468" visible="1"/>
           </filegroup>
         </legendlayer>
         <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="cobertura3g" showFeatureCount="0">
@@ -480,7 +482,7 @@
         </filegroup>
       </legendlayer>
     </legendgroup>
-    <legendgroup open="false" checked="Qt::PartiallyChecked" name="Pais">
+    <legendgroup open="true" checked="Qt::PartiallyChecked" name="Pais">
       <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="división_político_administrativa___distritos" showFeatureCount="0">
         <filegroup open="true" hidden="false">
           <legendlayerfile isInOverview="0" layerid="división_político_administrativa___distritos20161224095255527" visible="0"/>
