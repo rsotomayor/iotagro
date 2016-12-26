@@ -261,6 +261,7 @@ def work(argv,puntosIn_p,puntosOut_p):
         puntosOut_p.append(pt);
         
       print "Contador Puntos= " + str(contadorPuntos)
+      logger_g.info("Contador Puntos= " + str(contadorPuntos))
 
         
 def main(argv):
