@@ -236,8 +236,8 @@ def work(argv,puntosIn_p,puntosOut_p):
             flagContains = True
             break
 
-      if contadorPuntos > 10:
-        break;
+      #~ if contadorPuntos > 10:
+        #~ break;
 
 
       if flagContains == True:
