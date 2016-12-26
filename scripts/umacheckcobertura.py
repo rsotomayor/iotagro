@@ -254,6 +254,30 @@ def main(argv):
   puntosIn  = []
   puntosOut = []
 
+  try:
+    opts, args = getopt.getopt(argv,"h:i:b:s:r",["input=","output=","basedir=","station=","radio="])
+  except getopt.GetoptError:
+    print 'umacheckcobertura.py --input=<inputfile> --station=<stationlist> --output=<ouputfile>  --radio=<radio> '
+    sys.exit(2)
+  for opt, arg in opts:
+    if opt == '-h':
+      print 'umacheckcobertura.py --input=<inputfile> -station=<stationlist> --output=<ouputfile> ---radio=<radio>'
+      sys.exit()
+    elif opt in ("-i", "--input"):
+      inputfile_g = arg
+    elif opt in ("-o", "--output"):
+      outputfile_g = arg
+    elif opt in ("-s", "--station"):
+      stationfile_g = arg
+    elif opt in ("-r", "--radio"):
+      radio_g = float(arg);
+
+
+  try:
+    outputfile_g
+  except NameError:
+    usage("outputfile_g");
+    sys.exit(1);
 
   work(argv,puntosIn,puntosOut);
 
