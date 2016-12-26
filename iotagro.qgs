@@ -10,7 +10,7 @@
         <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="fruticultura20161224092441986" name="fruticultura_chile">
           <customproperties/>
         </layer-tree-layer>
-        <layer-tree-group expanded="1" checked="Qt::Unchecked" name="Fruta Fresca">
+        <layer-tree-group expanded="0" checked="Qt::Unchecked" name="Fruta Fresca">
           <customproperties/>
           <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="cerezo_any20161224100337028" name="cerezo">
             <customproperties/>
@@ -147,11 +147,8 @@
         </layer-tree-group>
       </layer-tree-group>
     </layer-tree-group>
-    <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Analisis">
+    <layer-tree-group expanded="1" checked="Qt::Unchecked" name="Analisis">
       <customproperties/>
-      <layer-tree-layer expanded="1" checked="Qt::Checked" id="some20161226135516229" name="some">
-        <customproperties/>
-      </layer-tree-layer>
       <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="comunasfruticolas20161224103318816" name="comunasfruticolas">
         <customproperties/>
       </layer-tree-layer>
@@ -161,10 +158,13 @@
       <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="división_político_administrativa___distritos20161224095255527" name="división_político_administrativa___distritos">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" checked="Qt::Checked" id="division_comunal20161224095316681" name="division_comunal">
+      <layer-tree-layer expanded="1" checked="Qt::Checked" id="miscomunas20161226143811594" name="miscomunas">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="division_regional20161224095400619" name="division_regional">
+      <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="division_comunal20161224095316681" name="division_comunal">
+        <customproperties/>
+      </layer-tree-layer>
+      <layer-tree-layer expanded="1" checked="Qt::Checked" id="division_regional20161224095400619" name="division_regional">
         <customproperties/>
       </layer-tree-layer>
     </layer-tree-group>
@@ -173,10 +173,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>237942.5744414571672678</xmin>
-      <ymin>6691846.818473219871521</ymin>
-      <xmax>489276.46356046525761485</xmax>
-      <ymax>7266566.35426950454711914</ymax>
+      <xmin>304831.7879127481719479</xmin>
+      <ymin>5348557.86108125373721123</ymin>
+      <xmax>807499.56615076155867428</xmax>
+      <ymax>6497996.93267382308840752</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -202,6 +202,7 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="comunasfruticolas20161224103318816"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="GSM_850_CHILE_any20161224124836007"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="test20161226014448256"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="some20161226140013110"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_850_CHILE_any20161224124836027"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_1900_CHILE_any20161224124835999"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="test20161226132518886"/>
@@ -211,9 +212,11 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="division_regional20161224095400619"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="cobertura4g_any20161225233152460"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_4G_700_region_any20161224124801200"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="miscomunas20161226143811594"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="cobertura2g_any20161225233152468"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesEntel_any20161224124652243"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="some20161226135228292"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueradecobertura20161226143435121"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="2g20161224135835562"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesClaro_any20161224124652215"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesVTR_any20161224124652208"/>
@@ -272,7 +275,7 @@
       <item>cobertura4g_any20161225233152460</item>
       <item>cobertura2g_any20161225233152468</item>
       <item>cobertura3g_any20161225233152484</item>
-      <item>some20161226135516229</item>
+      <item>miscomunas20161226143811594</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
@@ -283,7 +286,7 @@
             <legendlayerfile isInOverview="0" layerid="fruticultura20161224092441986" visible="0"/>
           </filegroup>
         </legendlayer>
-        <legendgroup open="true" checked="Qt::Unchecked" name="Fruta Fresca">
+        <legendgroup open="false" checked="Qt::Unchecked" name="Fruta Fresca">
           <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="cerezo" showFeatureCount="0">
             <filegroup open="true" hidden="false">
               <legendlayerfile isInOverview="0" layerid="cerezo_any20161224100337028" visible="0"/>
@@ -483,12 +486,7 @@
         </legendgroup>
       </legendgroup>
     </legendgroup>
-    <legendgroup open="true" checked="Qt::PartiallyChecked" name="Analisis">
-      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="some" showFeatureCount="0">
-        <filegroup open="true" hidden="false">
-          <legendlayerfile isInOverview="0" layerid="some20161226135516229" visible="1"/>
-        </filegroup>
-      </legendlayer>
+    <legendgroup open="true" checked="Qt::Unchecked" name="Analisis">
       <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="comunasfruticolas" showFeatureCount="0">
         <filegroup open="true" hidden="false">
           <legendlayerfile isInOverview="0" layerid="comunasfruticolas20161224103318816" visible="0"/>
@@ -501,14 +499,19 @@
           <legendlayerfile isInOverview="0" layerid="división_político_administrativa___distritos20161224095255527" visible="0"/>
         </filegroup>
       </legendlayer>
-      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="division_comunal" showFeatureCount="0">
+      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="miscomunas" showFeatureCount="0">
         <filegroup open="true" hidden="false">
-          <legendlayerfile isInOverview="0" layerid="division_comunal20161224095316681" visible="1"/>
+          <legendlayerfile isInOverview="0" layerid="miscomunas20161226143811594" visible="1"/>
         </filegroup>
       </legendlayer>
-      <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="division_regional" showFeatureCount="0">
+      <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="division_comunal" showFeatureCount="0">
         <filegroup open="true" hidden="false">
-          <legendlayerfile isInOverview="0" layerid="division_regional20161224095400619" visible="0"/>
+          <legendlayerfile isInOverview="0" layerid="division_comunal20161224095316681" visible="0"/>
+        </filegroup>
+      </legendlayer>
+      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="division_regional" showFeatureCount="0">
+        <filegroup open="true" hidden="false">
+          <legendlayerfile isInOverview="0" layerid="division_regional20161224095400619" visible="1"/>
         </filegroup>
       </legendlayer>
     </legendgroup>
@@ -6558,6 +6561,148 @@
         </edittype>
       </edittypes>
     </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <id>miscomunas20161226143811594</id>
+      <datasource>../../miscomunas.shp</datasource>
+      <title></title>
+      <abstract></abstract>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>miscomunas</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3169</srsid>
+          <srid>32719</srid>
+          <authid>EPSG:32719</authid>
+          <description>WGS 84 / UTM zone 19S</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <provider encoding="UTF-8">ogr</provider>
+      <previewExpression>COALESCE( "NOM_REG", '&lt;NULL>' )</previewExpression>
+      <vectorjoins/>
+      <expressionfields/>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="NOM_REG">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="NOM_PROV">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="NOM_COM">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_LENG">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="DIS_ELEC">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="CIR_SENA">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="COD_COMUNA">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Le_1">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Area">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+      </edittypes>
+      <renderer-v2 symbollevels="0" type="singleSymbol">
+        <symbols>
+          <symbol alpha="1" type="fill" name="0">
+            <layer pass="0" class="SimpleFill" locked="0">
+              <prop k="border_width_map_unit_scale" v="0,0"/>
+              <prop k="color" v="172,96,98,255"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0.26"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="style" v="solid"/>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale scalemethod="area"/>
+      </renderer-v2>
+      <customproperties/>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerTransparency>0</layerTransparency>
+      <displayfield>NOM_REG</displayfield>
+      <label>0</label>
+      <labelattributes>
+        <label fieldname="" text="Label"/>
+        <family fieldname="" name="Ubuntu"/>
+        <size fieldname="" units="pt" value="12"/>
+        <bold fieldname="" on="0"/>
+        <italic fieldname="" on="0"/>
+        <underline fieldname="" on="0"/>
+        <strikeout fieldname="" on="0"/>
+        <color fieldname="" red="0" blue="0" green="0"/>
+        <x fieldname=""/>
+        <y fieldname=""/>
+        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+        <angle fieldname="" value="0" auto="0"/>
+        <alignment fieldname="" value="center"/>
+        <buffercolor fieldname="" red="255" blue="255" green="255"/>
+        <buffersize fieldname="" units="pt" value="1"/>
+        <bufferenabled fieldname="" on=""/>
+        <multilineenabled fieldname="" on=""/>
+        <selectedonly on=""/>
+      </labelattributes>
+      <editform></editform>
+      <editforminit/>
+      <featformsuppress>0</featformsuppress>
+      <annotationform></annotationform>
+      <editorlayout>generatedlayout</editorlayout>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <attributeactions/>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="NOM_REG">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="NOM_PROV">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="NOM_COM">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_LENG">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="DIS_ELEC">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="CIR_SENA">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="COD_COMUNA">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Le_1">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+        <edittype widgetv2type="TextEdit" name="SHAPE_Area">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+      </edittypes>
+    </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>nuez_any20161224100336996</id>
       <datasource>./data/agricultura/fruticultura/especie|layername=nuez</datasource>
@@ -7343,106 +7488,6 @@
       </edittypes>
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <id>some20161226135516229</id>
-      <datasource>/tmp/some.shp</datasource>
-      <title></title>
-      <abstract></abstract>
-      <keywordList>
-        <value></value>
-      </keywordList>
-      <layername>some</layername>
-      <srs>
-        <spatialrefsys>
-          <proj4>+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs</proj4>
-          <srsid>3169</srsid>
-          <srid>32719</srid>
-          <authid>EPSG:32719</authid>
-          <description>WGS 84 / UTM zone 19S</description>
-          <projectionacronym>utm</projectionacronym>
-          <ellipsoidacronym>WGS84</ellipsoidacronym>
-          <geographicflag>false</geographicflag>
-        </spatialrefsys>
-      </srs>
-      <provider encoding="UTF-8">ogr</provider>
-      <previewExpression></previewExpression>
-      <vectorjoins/>
-      <expressionfields/>
-      <map-layer-style-manager current="">
-        <map-layer-style name=""/>
-      </map-layer-style-manager>
-      <edittypes>
-        <edittype widgetv2type="TextEdit" name="name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-      </edittypes>
-      <renderer-v2 symbollevels="0" type="singleSymbol">
-        <symbols>
-          <symbol alpha="1" type="marker" name="0">
-            <layer pass="0" class="SimpleMarker" locked="0">
-              <prop k="angle" v="0"/>
-              <prop k="color" v="100,227,187,255"/>
-              <prop k="horizontal_anchor_point" v="1"/>
-              <prop k="name" v="circle"/>
-              <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0"/>
-              <prop k="offset_unit" v="MM"/>
-              <prop k="outline_color" v="0,0,0,255"/>
-              <prop k="outline_style" v="solid"/>
-              <prop k="outline_width" v="0"/>
-              <prop k="outline_width_map_unit_scale" v="0,0"/>
-              <prop k="outline_width_unit" v="MM"/>
-              <prop k="scale_method" v="area"/>
-              <prop k="size" v="2"/>
-              <prop k="size_map_unit_scale" v="0,0"/>
-              <prop k="size_unit" v="MM"/>
-              <prop k="vertical_anchor_point" v="1"/>
-            </layer>
-          </symbol>
-        </symbols>
-        <rotation/>
-        <sizescale scalemethod="area"/>
-      </renderer-v2>
-      <customproperties/>
-      <blendMode>0</blendMode>
-      <featureBlendMode>0</featureBlendMode>
-      <layerTransparency>0</layerTransparency>
-      <displayfield>name</displayfield>
-      <label>0</label>
-      <labelattributes>
-        <label fieldname="" text="Label"/>
-        <family fieldname="" name="Ubuntu"/>
-        <size fieldname="" units="pt" value="12"/>
-        <bold fieldname="" on="0"/>
-        <italic fieldname="" on="0"/>
-        <underline fieldname="" on="0"/>
-        <strikeout fieldname="" on="0"/>
-        <color fieldname="" red="0" blue="0" green="0"/>
-        <x fieldname=""/>
-        <y fieldname=""/>
-        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
-        <angle fieldname="" value="0" auto="0"/>
-        <alignment fieldname="" value="center"/>
-        <buffercolor fieldname="" red="255" blue="255" green="255"/>
-        <buffersize fieldname="" units="pt" value="1"/>
-        <bufferenabled fieldname="" on=""/>
-        <multilineenabled fieldname="" on=""/>
-        <selectedonly on=""/>
-      </labelattributes>
-      <editform></editform>
-      <editforminit/>
-      <featformsuppress>0</featformsuppress>
-      <annotationform></annotationform>
-      <editorlayout>generatedlayout</editorlayout>
-      <excludeAttributesWMS/>
-      <excludeAttributesWFS/>
-      <attributeactions/>
-      <edittypes>
-        <edittype widgetv2type="TextEdit" name="name">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-      </edittypes>
-    </maplayer>
-    <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>subtelestacionesbasefija2016_any20161224124652229</id>
       <datasource>./data/comunicaciones/estacionesbase|layername=subtelestacionesbasefija2016</datasource>
       <title></title>
@@ -7844,8 +7889,10 @@
         <value>pomaceas_any20161224100337001</value>
         <value>subtelestacionesbasefija2016_any20161224124652229</value>
         <value>uvademesa_any20161224100337024</value>
+        <value>miscomunas20161226143811594</value>
       </LayerSnappingList>
       <LayerSnappingEnabledList type="QStringList">
+        <value>disabled</value>
         <value>disabled</value>
         <value>disabled</value>
         <value>disabled</value>
@@ -7932,8 +7979,10 @@
         <value>2</value>
         <value>2</value>
         <value>2</value>
+        <value>2</value>
       </LayerSnappingToleranceUnitList>
       <LayerSnapToList type="QStringList">
+        <value>to_vertex_and_segment</value>
         <value>to_vertex_and_segment</value>
         <value>to_vertex_and_segment</value>
         <value>to_vertex_and_segment</value>
@@ -7979,6 +8028,7 @@
       <DefaultSnapType type="QString">off</DefaultSnapType>
       <DefaultSnapTolerance type="double">0</DefaultSnapTolerance>
       <LayerSnappingToleranceList type="QStringList">
+        <value>0.000000</value>
         <value>0.000000</value>
         <value>0.000000</value>
         <value>0.000000</value>

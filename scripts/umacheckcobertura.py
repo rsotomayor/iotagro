@@ -244,8 +244,6 @@ def work(argv,puntosIn_p,puntosOut_p):
         print "Punto Encontrado " + str(contador)
         puntosIn_p.append(pt);
         
-      if contadorPuntos > 10:
-        break;  
       print "Contador Puntos= " + str(contadorPuntos)
 
         
