@@ -225,7 +225,7 @@ def work(argv,puntosIn_p,puntosOut_p):
       print point
       with fiona.open(stationfile_g,'r') as fiona_collection:
         contador = 0 ;
-        flagContains = True
+        flagContains = False
         for pl in fiona_collection:
           contador = contador + 1
           if contador % 10000 == 0:
@@ -236,7 +236,11 @@ def work(argv,puntosIn_p,puntosOut_p):
             flagContains = True
             break
 
-      if flagContains == False:
+      if contadorPuntos > 10:
+        break;
+
+
+      if flagContains == True:
         #~ print pt
         print "Punto Encontrado" + str(contador)
         puntosIn_p.append(pt);
@@ -283,12 +287,25 @@ def main(argv):
   outFileIn  = outputfile_g + "_in.shp";
   outFileOut = outputfile_g + "_out.shp";
         
+  for row in puntosIn:
+    print "IN =>";
+    print row;
+    print "<=";
+    
+  for row in puntosOut:
+    print "OUT =>";
+    print row;
+    print "<=";
+              
+
+        
   schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
   clusterContador = 1 ;
   with collection(outFileIn, "w", "ESRI Shapefile", schema) as output:
     for row in puntosIn:
       point = row['geometry']['coordinates']
-      name = "Cluster " + str(clusterContador)
+      point = Point(point[0],point[1])  
+      name = "Cluster In " + str(clusterContador)
       output.write({
           'properties': {
               'name': name
@@ -303,7 +320,8 @@ def main(argv):
   with collection(outFileOut, "w", "ESRI Shapefile", schema) as output:
     for row in puntosOut:
       point = row['geometry']['coordinates']
-      name = "Cluster " + str(clusterContador)
+      point = Point(point[0],point[1])      
+      name = "Cluster Out " + str(clusterContador)
       output.write({
           'properties': {
               'name': name

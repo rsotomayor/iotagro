@@ -149,7 +149,10 @@
     </layer-tree-group>
     <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Analisis">
       <customproperties/>
-      <layer-tree-layer expanded="1" checked="Qt::Checked" id="fueradecobertura20161226150309239" name="fueradecobertura">
+      <layer-tree-layer expanded="1" checked="Qt::Checked" id="fueracobertura_out20161226153033149" name="fueracobertura_out">
+        <customproperties/>
+      </layer-tree-layer>
+      <layer-tree-layer expanded="1" checked="Qt::Checked" id="fueracobertura_in20161226153011147" name="fueracobertura_in">
         <customproperties/>
       </layer-tree-layer>
       <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="comunasfruticolas20161224103318816" name="comunasfruticolas">
@@ -176,10 +179,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>338965.55846748239127919</xmin>
-      <ymin>5623802.64898814167827368</ymin>
-      <xmax>386946.96374009287683293</xmax>
-      <ymax>6148755.52511925157159567</ymax>
+      <xmin>561686.77929523470811546</xmin>
+      <ymin>3819277.13728744722902775</ymin>
+      <xmax>945538.02147611859254539</xmax>
+      <ymax>8018900.14633632637560368</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -203,7 +206,9 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_850_CHILE_any20161224124836027"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_4G_700_region_any20161224124801200"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="division_comunal20161224095316681"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_in20161226153011147"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueradecobertura20161226150309239"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_out20161226152906125"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesEntel_any20161224124652243"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesMovistar_any20161224124652236"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_4G_2600_region_any20161224124801204"/>
@@ -214,6 +219,7 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="miscomunas20161226143811594"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="cobertura2g_any20161225233152468"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="clusterfruticola10km_any20161224125015794"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_in20161226152855330"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="test20161226132518886"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="subtelestacionesbasefija2016_any20161224124652229"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_2G_1900_region_any20161224124801218"/>
@@ -223,8 +229,10 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="GSM_850_CHILE_any20161224124836007"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="2g20161224135835562"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueradecobertura20161226143435121"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_in20161226152426805"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="some20161226135516229"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="UMTS_1900_CHILE_any20161224124835999"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_in20161226152133157"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="some20161226140013110"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesWOM_any20161224124652222"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="Chile_3G_1900_region_any20161224124801223"/>
@@ -234,6 +242,7 @@
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="cobertura4g_any20161225233152460"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="comunasfruticolas20161224103318816"/>
       <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:4326" srcDatumTransform="-1" destDatumTransform="-1" layerid="EstacionesVTR_any20161224124652208"/>
+      <layer_coordinate_transform destAuthId="EPSG:32719" srcAuthId="EPSG:32719" srcDatumTransform="-1" destDatumTransform="-1" layerid="fueracobertura_out20161226153033149"/>
     </layer_coordinate_transform_info>
   </mapcanvas>
   <visibility-presets/>
@@ -281,7 +290,8 @@
       <item>cobertura2g_any20161225233152468</item>
       <item>cobertura3g_any20161225233152484</item>
       <item>miscomunas20161226143811594</item>
-      <item>fueradecobertura20161226150309239</item>
+      <item>fueracobertura_in20161226153011147</item>
+      <item>fueracobertura_out20161226153033149</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
@@ -493,9 +503,14 @@
       </legendgroup>
     </legendgroup>
     <legendgroup open="true" checked="Qt::PartiallyChecked" name="Analisis">
-      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="fueradecobertura" showFeatureCount="0">
+      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="fueracobertura_out" showFeatureCount="0">
         <filegroup open="true" hidden="false">
-          <legendlayerfile isInOverview="0" layerid="fueradecobertura20161226150309239" visible="1"/>
+          <legendlayerfile isInOverview="0" layerid="fueracobertura_out20161226153033149" visible="1"/>
+        </filegroup>
+      </legendlayer>
+      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="fueracobertura_in" showFeatureCount="0">
+        <filegroup open="true" hidden="false">
+          <legendlayerfile isInOverview="0" layerid="fueracobertura_in20161226153011147" visible="1"/>
         </filegroup>
       </legendlayer>
       <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="comunasfruticolas" showFeatureCount="0">
@@ -527,7 +542,7 @@
       </legendlayer>
     </legendgroup>
   </legend>
-  <projectlayers layercount="43">
+  <projectlayers layercount="44">
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>Chile_2G_1900_region_any20161224124801218</id>
       <datasource>./data/comunicaciones/areacobertura/claro|layername=Chile_2G_1900_region</datasource>
@@ -6377,14 +6392,14 @@
       </edittypes>
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <id>fueradecobertura20161226150309239</id>
-      <datasource>./scripts/fueradecobertura.shp</datasource>
+      <id>fueracobertura_in20161226153011147</id>
+      <datasource>../../rsotomayor@savtec.cl/tmp/fueracobertura_in.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>fueradecobertura</layername>
+      <layername>fueracobertura_in</layername>
       <srs>
         <spatialrefsys>
           <proj4>+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs</proj4>
@@ -6414,7 +6429,107 @@
           <symbol alpha="1" type="marker" name="0">
             <layer pass="0" class="SimpleMarker" locked="0">
               <prop k="angle" v="0"/>
-              <prop k="color" v="154,179,134,255"/>
+              <prop k="color" v="108,116,161,255"/>
+              <prop k="horizontal_anchor_point" v="1"/>
+              <prop k="name" v="circle"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="0,0,0,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="scale_method" v="area"/>
+              <prop k="size" v="2"/>
+              <prop k="size_map_unit_scale" v="0,0"/>
+              <prop k="size_unit" v="MM"/>
+              <prop k="vertical_anchor_point" v="1"/>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale scalemethod="area"/>
+      </renderer-v2>
+      <customproperties/>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerTransparency>0</layerTransparency>
+      <displayfield>name</displayfield>
+      <label>0</label>
+      <labelattributes>
+        <label fieldname="" text="Label"/>
+        <family fieldname="" name="Ubuntu"/>
+        <size fieldname="" units="pt" value="12"/>
+        <bold fieldname="" on="0"/>
+        <italic fieldname="" on="0"/>
+        <underline fieldname="" on="0"/>
+        <strikeout fieldname="" on="0"/>
+        <color fieldname="" red="0" blue="0" green="0"/>
+        <x fieldname=""/>
+        <y fieldname=""/>
+        <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+        <angle fieldname="" value="0" auto="0"/>
+        <alignment fieldname="" value="center"/>
+        <buffercolor fieldname="" red="255" blue="255" green="255"/>
+        <buffersize fieldname="" units="pt" value="1"/>
+        <bufferenabled fieldname="" on=""/>
+        <multilineenabled fieldname="" on=""/>
+        <selectedonly on=""/>
+      </labelattributes>
+      <editform></editform>
+      <editforminit/>
+      <featformsuppress>0</featformsuppress>
+      <annotationform></annotationform>
+      <editorlayout>generatedlayout</editorlayout>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <attributeactions/>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+      </edittypes>
+    </maplayer>
+    <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <id>fueracobertura_out20161226153033149</id>
+      <datasource>../../rsotomayor@savtec.cl/tmp/fueracobertura_out.shp</datasource>
+      <title></title>
+      <abstract></abstract>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>fueracobertura_out</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs</proj4>
+          <srsid>3169</srsid>
+          <srid>32719</srid>
+          <authid>EPSG:32719</authid>
+          <description>WGS 84 / UTM zone 19S</description>
+          <projectionacronym>utm</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>false</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <provider encoding="UTF-8">ogr</provider>
+      <previewExpression></previewExpression>
+      <vectorjoins/>
+      <expressionfields/>
+      <map-layer-style-manager current="">
+        <map-layer-style name=""/>
+      </map-layer-style-manager>
+      <edittypes>
+        <edittype widgetv2type="TextEdit" name="name">
+          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
+        </edittype>
+      </edittypes>
+      <renderer-v2 symbollevels="0" type="singleSymbol">
+        <symbols>
+          <symbol alpha="1" type="marker" name="0">
+            <layer pass="0" class="SimpleMarker" locked="0">
+              <prop k="angle" v="0"/>
+              <prop k="color" v="249,138,27,255"/>
               <prop k="horizontal_anchor_point" v="1"/>
               <prop k="name" v="circle"/>
               <prop k="offset" v="0,0"/>
@@ -6674,7 +6789,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>miscomunas20161226143811594</id>
-      <datasource>../../miscomunas.shp</datasource>
+      <datasource>./data/work/miscomunas.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -6776,10 +6891,10 @@
         <multilineenabled fieldname="" on=""/>
         <selectedonly on=""/>
       </labelattributes>
-      <editform></editform>
+      <editform>.</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform></annotationform>
+      <annotationform>.</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -7994,13 +8109,13 @@
         <value>duraznosynectarines_any20161224100337015</value>
         <value>fruticultura20161224092441986</value>
         <value>kiwi_any20161224100336992</value>
+        <value>miscomunas20161226143811594</value>
         <value>nuez_any20161224100336996</value>
         <value>olivo_any20161224100336965</value>
         <value>paltas_any20161224100336987</value>
         <value>pomaceas_any20161224100337001</value>
         <value>subtelestacionesbasefija2016_any20161224124652229</value>
         <value>uvademesa_any20161224100337024</value>
-        <value>miscomunas20161226143811594</value>
       </LayerSnappingList>
       <LayerSnappingEnabledList type="QStringList">
         <value>disabled</value>
