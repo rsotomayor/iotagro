@@ -41,8 +41,20 @@ import logging
 from os.path import expanduser
 from os.path import basename
 
-logger_g    = logging.getLogger("umacheckcobertura")
+inputfile_g     = "/dev/null"
+outputfile_g    = "/dev/null"
+stationfile_g   = "/dev/null"
+logfile_g       = "/dev/null"
+radio_g         = 10.0
+logger_g        = logging.getLogger("umacheckcobertura")
 
+
+def now():
+  return time.ctime(time.time())
+
+def usage(var_p):
+  print var_p + " no esta definida";
+  print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
 
 def haversine(lon1, lat1, lon2, lat2):
     """
@@ -66,93 +78,6 @@ def haversine(lon1, lat1, lon2, lat2):
     c = 2 * asin(sqrt(a)) 
     km = 6367 * c
     return km
-    
-
-def now():
-  return time.ctime(time.time())
-
-
-def prediceCobertura():
-  global basedir_g
-  global inputfile_g
-  global stationfile_g
-  global fbudget_g
-  
-  global fcubiertos_g
-  global fnocubiertos_g
-  global stationfile_g
-
-  print stationfile_g
-  print inputfile_g
-  print basedir_g
-  contadorPuntos = 0 ;
-
-  contadoresPuntoCubierto   = 0 ;
-  contadoresPuntoNoCubierto = 0 ;
-
-
-  f = open(inputfile_g, 'rt')
-
-  try:
-      contadorPuntos = 0 ;
-      reader = csv.reader(f)
-      firstline = True
-      for row in reader:
-        if firstline:    #skip first line
-          firstline = False
-          fcubiertos = open(fcubiertos_g, 'w')
-          fcubiertos.write(" ".join((str(elem)+",") for elem in row) + "\n")
-          fnocubiertos = open(fnocubiertos_g, 'w')
-          fnocubiertos.write(" ".join((str(elem)+",") for elem in row) + "\n")
-          continue
-        longitudePunto=float(row[0])
-        latitudePunto=float(row[1])
-
-        contadorEstaciones = 0 
-        f2 = open(stationfile_g, 'rt')
-        flagCubierto = False
-        try:
-            reader2 = csv.reader(f2)
-            firstline = True
-            for row2 in reader2:
-              if firstline:    #skip first line
-                firstline = False
-                continue
-              longitudeEstacion=float(row2[18].replace(",","."))
-              latitudeEstacion=float(row2[17].replace(",","."))
-
-               
-              distance = haversine(longitudePunto,latitudePunto,longitudeEstacion,latitudeEstacion);
-              if ( distance < fbudget ):
-                #~ print "Distancia :" + str(distance)
-                flagCubierto = True
-                break;
-              contadorEstaciones = contadorEstaciones + 1
-        finally:
-            f2.close()
-
-        if flagCubierto == True:
-          contadoresPuntoCubierto   = contadoresPuntoCubierto + 1 ;
-          fcubiertos.write(" ".join((str(elem)+",") for elem in row) + "\n")          
-        else:
-          contadoresPuntoNoCubierto = contadoresPuntoNoCubierto + 1 ;
-          fnocubiertos.write(" ".join((str(elem)+",") for elem in row) + "\n")
-          
-
-        print "Puntos Cobertura: " + str(contadoresPuntoCubierto) + " NO Cobertura: " + str(contadoresPuntoNoCubierto)
-        contadorPuntos = contadorPuntos + 1
-  finally:
-      f.close()
-      fcubiertos.close();
-      fnocubiertos.close();
-      
-  print "Puntos "+ str(contadorPuntos)
-
-
-def usage(var_p):
-  print var_p + " no esta definida";
-  print 'umacheckcobertura.py --input=<inputfile> --output=<ouputfile> --station=<stationlist> --radio=<radio>'
- 
 
 def in_me(self, point):
   result = False
@@ -172,8 +97,65 @@ def in_me(self, point):
     p1x,p1y = p2x,p2y
   return result
 
-def work(argv,puntosIn_p,puntosOut_p):
-  radio_g        = 10.0 ;
+def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
+  global  radio_g;
+  global  inputfile_g;
+  global  outputfile_g;
+  global  stationfile_g;
+  global  logfile_g;
+  
+  contadorPuntos = 0 ;
+
+
+  with fiona.open(inputfile_g, 'r') as input:
+    for pt in input:
+      puntosOut_p.append(pt);
+
+
+  print "Comienza con puntos Out: " + str(len(puntosOut_p));  
+  logger_g.info("Comienza con puntos Out: " + str(len(puntosOut_p)));
+
+  contadorArea = 0 ;
+  print "File: " + stationfile_g
+  logger_g.info("File: " + stationfile_g)
+
+  with fiona.open(stationfile_g,'r') as fiona_collection:
+    for pl in fiona_collection:
+      shapefile_record = pl
+      shape = shapely.geometry.asShape( shapefile_record['geometry'] )
+      contadorArea = contadorArea + 1  ;
+      index = 0 ;
+
+      if not puntosOut_p:
+        break
+      else:
+        for pt in puntosOut_p:
+
+          point = pt['geometry']['coordinates']
+          point = Point(float(point[0]),float(point[1]))
+          index = index + 1 
+          if shape.contains(point):
+            puntosIn_p.append(pt);
+            puntosOut_p.remove(pt)
+
+      print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
+      print "Puntos Out: " + str(len(puntosOut_p));  
+      print "Puntos In: " + str(len(puntosIn_p));  
+
+      logger_g.info("Contador Area: " + str(contadorArea) + " Index " + str(index))
+      logger_g.info("Puntos Out: " + str(len(puntosOut_p)))
+      logger_g.info("Puntos In: " + str(len(puntosIn_p)))
+
+
+  print contadorArea;
+
+        
+def main(argv):
+  global  radio_g;
+  global  inputfile_g;
+  global  outputfile_g;
+  global  stationfile_g;
+  global  logfile_g;
 
   try:
     opts, args = getopt.getopt(argv,"h:i:b:s:l:r",["input=","output=","basedir=","station=","logfile=","radio="])
@@ -195,14 +177,12 @@ def work(argv,puntosIn_p,puntosOut_p):
     elif opt in ("-r", "--radio"):
       radio_g = float(arg);
 
-
-  contadorPuntos = 0 ;
-
-
-  try:
-    inputfile_g
-  except NameError:
+  if not os.path.exists(inputfile_g):
     usage("inputfile_g");
+    sys.exit(1);
+  
+  if not os.path.exists(stationfile_g):
+    usage("stationfile_g");
     sys.exit(1);
 
   try:
@@ -211,96 +191,11 @@ def work(argv,puntosIn_p,puntosOut_p):
     usage("outputfile_g");
     sys.exit(1);
 
-  try:
-    stationfile_g
-  except NameError:
-    usage("stationfile_g");
-    sys.exit(1);
 
   try:
     radio_g
   except NameError:
     usage("radio_g");
-    sys.exit(1);
-    
-
-  with fiona.open(inputfile_g, 'r') as input:
-    for pt in input:
-      contadorPuntos = contadorPuntos + 1
-      point = pt['geometry']['coordinates']
-      point = Point(point[0],point[1])
-      
-      #~ point = shapely.geometry.Point(-71.6272500, -33.039320 )
-      print point
-      with fiona.open(stationfile_g,'r') as fiona_collection:
-        contador = 0 ;
-        flagContains = False
-        for pl in fiona_collection:
-          contador = contador + 1
-          if contador % 10000 == 0:
-            print contador;
-            logger_g.info("Contador "+str(contador))
-          shapefile_record = pl
-          shape = shapely.geometry.asShape( shapefile_record['geometry'] )
-          if shape.contains(point):
-            flagContains = True
-            break
-
-      #~ if contadorPuntos > 10:
-        #~ break;
-
-
-      if flagContains == True:
-        #~ print pt
-        print "Punto Encontrado" + str(contador)
-        logger_g.info("Punto Encontrado" + str(contador));
-        puntosIn_p.append(pt);
-      else:
-        print "Punto No Encontrado " + str(contador)
-        logger_g.info("Punto No Encontrado " + str(contador));
-        puntosOut_p.append(pt);
-        
-      print "Contador Puntos= " + str(contadorPuntos)
-      logger_g.info("Contador Puntos= " + str(contadorPuntos))
-
-        
-def main(argv):
-
-  puntosIn  = []
-  puntosOut = []
-
-  try:
-    opts, args = getopt.getopt(argv,"h:i:b:s:l:r",["input=","output=","basedir=","station=","logfile=","radio="])
-  except getopt.GetoptError:
-    print 'umacheckcobertura.py --input=<inputfile> --station=<stationlist> --output=<ouputfile>  --radio=<radio> '
-    sys.exit(2)
-  for opt, arg in opts:
-    if opt == '-h':
-      print 'umacheckcobertura.py --input=<inputfile> -station=<stationlist> --output=<ouputfile> ---radio=<radio>'
-      sys.exit()
-    elif opt in ("-i", "--input"):
-      inputfile_g = arg
-    elif opt in ("-o", "--output"):
-      outputfile_g = arg
-    elif opt in ("-s", "--station"):
-      stationfile_g = arg
-    elif opt in ("-l", "--logfile"):
-      logfile_g = arg
-    elif opt in ("-r", "--radio"):
-      radio_g = float(arg);
-
-
-  try:
-    outputfile_g
-  except NameError:
-    usage("outputfile_g");
-    sys.exit(1);
-
-
-  try:
-    logfile_g
-  except NameError:
-    usage("logfile_g");
     sys.exit(1);
 
 
@@ -311,23 +206,16 @@ def main(argv):
   logger_g.addHandler(hdlr) 
   logger_g.setLevel(logging.INFO)
 
-  logger_g.info("Start Work");
-  work(argv,puntosIn,puntosOut);
-
 
   outFileIn  = outputfile_g + "_in.shp";
   outFileOut = outputfile_g + "_out.shp";
-        
-  #~ for row in puntosIn:
-    #~ print "IN =>";
-    #~ print row;
-    #~ print "<=";
-    
-  #~ for row in puntosOut:
-    #~ print "OUT =>";
-    #~ print row;
-    #~ print "<=";
-              
+          
+  
+  puntosIn  = []
+  puntosOut = []
+  
+  checkPointInPolygon(argv,puntosIn,puntosOut);
+
 
   schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
   clusterContador = 1 ;
@@ -360,7 +248,7 @@ def main(argv):
           })
       clusterContador = clusterContador +1 ;
 
-  
+
         
   print "Saving ...."
         

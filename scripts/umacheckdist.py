@@ -339,8 +339,9 @@ def work_polygon(argv,puntosIn_p,puntosOut_p):
         break
       else:
         for pt in puntosOut_p:
+
           point = pt['geometry']['coordinates']
-          point = Point(point[0],point[1])
+          point = Point(float(point[0]),float(point[1]))
           index = index + 1 
           if shape.contains(point):
             puntosIn_p.append(pt);
