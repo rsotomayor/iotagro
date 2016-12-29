@@ -39,10 +39,7 @@ from fiona import collection
 import logging
 from os.path import expanduser
 from os.path import basename
-from multiprocessing import Process
-from time import sleep
-from multiprocessing import Process
-from time import sleep
+import signal
 
 
 flagIn_g        = False
@@ -54,26 +51,11 @@ radio_g         = 10.0
 logger_g        = logging.getLogger("umacheckcobertura")
 
 
-def inSide(shape_p,point_p):
-  global flagIn_g
-  flagIn_g = shape_p.contains(point_p)
 
-def run_with_limited_time(func, args, kwargs, time):
-    """Runs a function with time limit
+def handler(signum, frame):
+  print "Timeout ...."
+  logger_g.warning("Timeout ....")
 
-    :param func: The function to run
-    :param args: The functions args, given as tuple
-    :param kwargs: The functions keywords, given as dict
-    :param time: The time limit in seconds
-    :return: True if the function ended successfully. False if it was terminated.
-    """
-    p = Process(target=func, args=args, kwargs=kwargs)
-    p.start()
-    p.join(time)
-    if p.is_alive():
-        p.terminate()
-        return False
-    return True
 
 def now():
   return time.ctime(time.time())
@@ -160,20 +142,21 @@ def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
       if not puntosOut_p:
         break
       else:
-        for pt in puntosOut_p:
-          point = pt['geometry']['coordinates']
-          point = Point(float(point[0]),float(point[1]))
-          index = index + 1 
-          flagExec = run_with_limited_time(inSide, (shape,point), {}, 1)
-          if flagExec == True:
-            flagIn = flagIn_g;
-          else:
-            print "TimeOut"
+        if ( contadorArea > 47180 ):
+          for pt in puntosOut_p:
+            point = pt['geometry']['coordinates']
+            point = Point(float(point[0]),float(point[1]))
+            index = index + 1
+            signal.signal(signal.SIGALRM, handler)
+            signal.alarm(10)
             flagIn = False
-
-          if flagIn:
-            puntosIn_p.append(pt);
-            puntosOut_p.remove(pt)
+            try:
+              flagIn = shape.contains(point)
+            except Exception, exc: 
+              print exc            
+            if flagIn:
+              puntosIn_p.append(pt);
+              puntosOut_p.remove(pt)
 
       print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
       print "Puntos Out: " + str(len(puntosOut_p));  
