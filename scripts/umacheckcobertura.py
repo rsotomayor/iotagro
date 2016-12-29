@@ -40,6 +40,9 @@ import logging
 from os.path import expanduser
 from os.path import basename
 import signal
+from osgeo import ogr
+import json
+
 
 
 flagIn_g        = False
@@ -56,6 +59,9 @@ def handler(signum, frame):
   print "Timeout ...."
   logger_g.warning("Timeout ....")
 
+def my_sleep(sleep_p,point_p,poly_p):
+  dist=point_p.distance(poly_p)  
+  return dist;
 
 def now():
   return time.ctime(time.time())
@@ -88,86 +94,84 @@ def haversine(lon1, lat1, lon2, lat2):
     km = 6367 * c
     return km
 
-def in_me(self, point):
-  print "In Me:"
+def records(file):  
+  # generator 
+  reader = ogr.Open(file)
+  layer = reader.GetLayer(0)
+  for i in range(layer.GetFeatureCount()):
+      feature = layer.GetFeature(i)
+      yield json.loads(feature.ExportToJson())
 
-  result = False
-  n = len(self.corners)
 
-  p1x = int(self.corners[0].x)
-  p1y = int(self.corners[0].y)
-  for i in range(n+1):
-    p2x = int(self.corners[i % n].x)
-    p2y = int(self.corners[i % n].y)
-    if point.y > min(p1y,p2y):
-      if point.x <= max(p1x,p2x):
-        if p1y != p2y:
-          xinters = (point.y-p1y)*(p2x-p1x)/(p2y-p1y)+p1x
-          print xinters
-        if p1x == p2x or point.x <= xinters:
-          result = not result
-    p1x,p1y = p2x,p2y
-  return result
+def checkPointInPolygon(puntosIn_p,puntosOut_p):
+  points  = [pt for pt in records(inputfile_g)]
+  multipol = records(stationfile_g)
+  multi = multipol.next() # 1 feature
 
-def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
-  global  radio_g;
-  global  inputfile_g;
-  global  outputfile_g;
-  global  stationfile_g;
-  global  logfile_g;
+  for i, pt in enumerate(points):
+    puntosOut_p.append(pt);
+
+  contadorInAnterior = 0; 
+
+  send2File(puntosIn_p,puntosOut_p)
+  contadorIn = 0 ;
+  for j, pl in enumerate(multipol):
+    print "Area: " + str(j) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p))
+    logger_g.info("Area: " + str(j) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p)))
+    for i, pt in enumerate(puntosOut_p):
+      point = shape(pt['geometry'])
+      #~ if ( i%500 == 0 ):
+        #~ print "Cheking points: " + str(i)
+        #~ logger_g.info("Cheking points: " + str(i))
+      if point.within(shape(multi['geometry'])):
+        puntosIn_p.append(pt);
+        del puntosOut_p[i]
+        contadorIn = contadorIn + 1 
+        #~ print "ContadorIn: " + str(contadorIn)
+    if ( contadorIn != contadorInAnterior ):
+      send2File(puntosIn_p,puntosOut_p)
+    contadorAnterior = contadorIn;
+          
+def send2File(puntosIn_p,puntosOut_p):
+  outFileIn  = outputfile_g + "_in.shp";
+  outFileOut = outputfile_g + "_out.shp";
+
+  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
+  clusterContador = 1 ;
+  with collection(outFileIn, "w", "ESRI Shapefile", schema) as output:
+    for row in puntosIn_p:
+      point = row['geometry']['coordinates']
+      point = Point(point[0],point[1])  
+      name = "Cluster In " + str(clusterContador)
+      output.write({
+          'properties': {
+              'name': name
+          },
+          'geometry': mapping(point)
+          })
+      clusterContador = clusterContador +1 ;
+
+
+  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
+  clusterContador = 1 ;
+  with collection(outFileOut, "w", "ESRI Shapefile", schema) as output:
+    for row in puntosOut_p:
+      point = row['geometry']['coordinates']
+      point = Point(point[0],point[1])      
+      name = "Cluster Out " + str(clusterContador)
+      output.write({
+          'properties': {
+              'name': name
+          },
+          'geometry': mapping(point)
+          })
+      clusterContador = clusterContador +1 ;
+
+
+        
+  print "Saving ...."
   
-  contadorPuntos = 0 ;
-
-
-  with fiona.open(inputfile_g, 'r') as input:
-    for pt in input:
-      puntosOut_p.append(pt);
-
-
-  print "Comienza con puntos Out: " + str(len(puntosOut_p));  
-  logger_g.info("Comienza con puntos Out: " + str(len(puntosOut_p)));
-
-  contadorArea = 0 ;
-  print "File: " + stationfile_g
-  logger_g.info("File: " + stationfile_g)
-
-
-  with fiona.open(stationfile_g,'r') as fiona_collection:
-    for pl in fiona_collection:
-      shapefile_record = pl
-      shape = shapely.geometry.asShape( shapefile_record['geometry'] )
-      contadorArea = contadorArea + 1  ;
-      index = 0 ;
-
-      if not puntosOut_p:
-        break
-      else:
-        for pt in puntosOut_p:
-          point = pt['geometry']['coordinates']
-          point = Point(float(point[0]),float(point[1]))
-          index = index + 1
-          signal.signal(signal.SIGALRM, handler)
-          signal.alarm(10)
-          flagIn = False
-          try:
-            flagIn = shape.contains(point)
-          except Exception, exc: 
-            print exc            
-          if flagIn:
-            puntosIn_p.append(pt);
-            puntosOut_p.remove(pt)
-
-      print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
-      print "Puntos Out: " + str(len(puntosOut_p));  
-      print "Puntos In: " + str(len(puntosIn_p));  
-
-      logger_g.info("Contador Area: " + str(contadorArea) + " Index " + str(index))
-      logger_g.info("Puntos Out: " + str(len(puntosOut_p)))
-      logger_g.info("Puntos In: " + str(len(puntosIn_p)))
-
-
-  print contadorArea;
-
+  
         
 def main(argv):
   global  radio_g;
@@ -226,51 +230,13 @@ def main(argv):
   logger_g.setLevel(logging.INFO)
 
 
-  outFileIn  = outputfile_g + "_in.shp";
-  outFileOut = outputfile_g + "_out.shp";
           
   
   puntosIn  = []
   puntosOut = []
   
-  checkPointInPolygon(argv,puntosIn,puntosOut);
-
-
-  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
-  clusterContador = 1 ;
-  with collection(outFileIn, "w", "ESRI Shapefile", schema) as output:
-    for row in puntosIn:
-      point = row['geometry']['coordinates']
-      point = Point(point[0],point[1])  
-      name = "Cluster In " + str(clusterContador)
-      output.write({
-          'properties': {
-              'name': name
-          },
-          'geometry': mapping(point)
-          })
-      clusterContador = clusterContador +1 ;
-
-
-  schema = { 'geometry': 'Point', 'properties': { 'name': 'str' } }
-  clusterContador = 1 ;
-  with collection(outFileOut, "w", "ESRI Shapefile", schema) as output:
-    for row in puntosOut:
-      point = row['geometry']['coordinates']
-      point = Point(point[0],point[1])      
-      name = "Cluster Out " + str(clusterContador)
-      output.write({
-          'properties': {
-              'name': name
-          },
-          'geometry': mapping(point)
-          })
-      clusterContador = clusterContador +1 ;
-
-
-        
-  print "Saving ...."
-        
+  checkPointInPolygon(puntosIn,puntosOut);
+          
   #~ w.save('/tmp/test.shp')    
         
   print "QUIT"
