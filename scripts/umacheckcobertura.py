@@ -21,7 +21,6 @@
 #  MA 02110-1301, USA.
 #
 #
-import matplotlib.path as mplPath
 import fiona
 import shapefile
 import shapely
@@ -40,6 +39,11 @@ from fiona import collection
 import logging
 from os.path import expanduser
 from os.path import basename
+from multiprocessing import Process
+from time import sleep
+
+
+
 
 inputfile_g     = "/dev/null"
 outputfile_g    = "/dev/null"
@@ -48,9 +52,17 @@ logfile_g       = "/dev/null"
 radio_g         = 10.0
 logger_g        = logging.getLogger("umacheckcobertura")
 
-
 def now():
   return time.ctime(time.time())
+
+def f(time):
+    sleep(time)
+
+
+def inSide(shape_p,point_p):
+  flagIn = shape_p.contains(point_p)
+  return flagIn
+
 
 def usage(var_p):
   print var_p + " no esta definida";
@@ -80,8 +92,11 @@ def haversine(lon1, lat1, lon2, lat2):
     return km
 
 def in_me(self, point):
+  print "In Me:"
+
   result = False
   n = len(self.corners)
+
   p1x = int(self.corners[0].x)
   p1y = int(self.corners[0].y)
   for i in range(n+1):
@@ -96,6 +111,24 @@ def in_me(self, point):
           result = not result
     p1x,p1y = p2x,p2y
   return result
+
+def run_with_limited_time(func, args, kwargs, time):
+    """Runs a function with time limit
+
+    :param func: The function to run
+    :param args: The functions args, given as tuple
+    :param kwargs: The functions keywords, given as dict
+    :param time: The time limit in seconds
+    :return: True if the function ended successfully. False if it was terminated.
+    """
+    p = Process(target=func, args=args, kwargs=kwargs)
+    p.start()
+    p.join(time)
+    if p.is_alive():
+        p.terminate()
+        return False
+    return True
+
 
 def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
   global  radio_g;
@@ -119,6 +152,7 @@ def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
   print "File: " + stationfile_g
   logger_g.info("File: " + stationfile_g)
 
+
   with fiona.open(stationfile_g,'r') as fiona_collection:
     for pl in fiona_collection:
       shapefile_record = pl
@@ -129,14 +163,16 @@ def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
       if not puntosOut_p:
         break
       else:
-        for pt in puntosOut_p:
-
-          point = pt['geometry']['coordinates']
-          point = Point(float(point[0]),float(point[1]))
-          index = index + 1 
-          if shape.contains(point):
-            puntosIn_p.append(pt);
-            puntosOut_p.remove(pt)
+        if contadorArea > 41895:
+          for pt in puntosOut_p:
+            point = pt['geometry']['coordinates']
+            point = Point(float(point[0]),float(point[1]))
+            index = index + 1 
+            #~ print run_with_limited_time(inSide, (shape,point), {}, 10) # True
+            #~ flagIn = shape.contains(point)
+            if shape.contains(point):
+              puntosIn_p.append(pt);
+              puntosOut_p.remove(pt)
 
       print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
       print "Puntos Out: " + str(len(puntosOut_p));  
