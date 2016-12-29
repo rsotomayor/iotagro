@@ -142,21 +142,20 @@ def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
       if not puntosOut_p:
         break
       else:
-        if ( contadorArea > 47180 ):
-          for pt in puntosOut_p:
-            point = pt['geometry']['coordinates']
-            point = Point(float(point[0]),float(point[1]))
-            index = index + 1
-            signal.signal(signal.SIGALRM, handler)
-            signal.alarm(10)
-            flagIn = False
-            try:
-              flagIn = shape.contains(point)
-            except Exception, exc: 
-              print exc            
-            if flagIn:
-              puntosIn_p.append(pt);
-              puntosOut_p.remove(pt)
+        for pt in puntosOut_p:
+          point = pt['geometry']['coordinates']
+          point = Point(float(point[0]),float(point[1]))
+          index = index + 1
+          signal.signal(signal.SIGALRM, handler)
+          signal.alarm(10)
+          flagIn = False
+          try:
+            flagIn = shape.contains(point)
+          except Exception, exc: 
+            print exc            
+          if flagIn:
+            puntosIn_p.append(pt);
+            puntosOut_p.remove(pt)
 
       print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
       print "Puntos Out: " + str(len(puntosOut_p));  
