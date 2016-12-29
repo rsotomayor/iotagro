@@ -41,10 +41,11 @@ from os.path import expanduser
 from os.path import basename
 from multiprocessing import Process
 from time import sleep
+from multiprocessing import Process
+from time import sleep
 
 
-
-
+flagIn_g        = False
 inputfile_g     = "/dev/null"
 outputfile_g    = "/dev/null"
 stationfile_g   = "/dev/null"
@@ -52,16 +53,30 @@ logfile_g       = "/dev/null"
 radio_g         = 10.0
 logger_g        = logging.getLogger("umacheckcobertura")
 
-def now():
-  return time.ctime(time.time())
-
-def f(time):
-    sleep(time)
-
 
 def inSide(shape_p,point_p):
-  flagIn = shape_p.contains(point_p)
-  return flagIn
+  global flagIn_g
+  flagIn_g = shape_p.contains(point_p)
+
+def run_with_limited_time(func, args, kwargs, time):
+    """Runs a function with time limit
+
+    :param func: The function to run
+    :param args: The functions args, given as tuple
+    :param kwargs: The functions keywords, given as dict
+    :param time: The time limit in seconds
+    :return: True if the function ended successfully. False if it was terminated.
+    """
+    p = Process(target=func, args=args, kwargs=kwargs)
+    p.start()
+    p.join(time)
+    if p.is_alive():
+        p.terminate()
+        return False
+    return True
+
+def now():
+  return time.ctime(time.time())
 
 
 def usage(var_p):
@@ -112,24 +127,6 @@ def in_me(self, point):
     p1x,p1y = p2x,p2y
   return result
 
-def run_with_limited_time(func, args, kwargs, time):
-    """Runs a function with time limit
-
-    :param func: The function to run
-    :param args: The functions args, given as tuple
-    :param kwargs: The functions keywords, given as dict
-    :param time: The time limit in seconds
-    :return: True if the function ended successfully. False if it was terminated.
-    """
-    p = Process(target=func, args=args, kwargs=kwargs)
-    p.start()
-    p.join(time)
-    if p.is_alive():
-        p.terminate()
-        return False
-    return True
-
-
 def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
   global  radio_g;
   global  inputfile_g;
@@ -163,16 +160,20 @@ def checkPointInPolygon(argv,puntosIn_p,puntosOut_p):
       if not puntosOut_p:
         break
       else:
-        if contadorArea > 41895:
-          for pt in puntosOut_p:
-            point = pt['geometry']['coordinates']
-            point = Point(float(point[0]),float(point[1]))
-            index = index + 1 
-            #~ print run_with_limited_time(inSide, (shape,point), {}, 10) # True
-            #~ flagIn = shape.contains(point)
-            if shape.contains(point):
-              puntosIn_p.append(pt);
-              puntosOut_p.remove(pt)
+        for pt in puntosOut_p:
+          point = pt['geometry']['coordinates']
+          point = Point(float(point[0]),float(point[1]))
+          index = index + 1 
+          flagExec = run_with_limited_time(inSide, (shape,point), {}, 1)
+          if flagExec == True:
+            flagIn = flagIn_g;
+          else:
+            print "TimeOut"
+            flagIn = False
+
+          if flagIn:
+            puntosIn_p.append(pt);
+            puntosOut_p.remove(pt)
 
       print "Contador Area: " + str(contadorArea) + " Index " + str(index);  
       print "Puntos Out: " + str(len(puntosOut_p));  
