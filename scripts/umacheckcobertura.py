@@ -106,16 +106,16 @@ def records(file):
 def checkPointInPolygon(puntosIn_p,puntosOut_p):
   points  = [pt for pt in records(inputfile_g)]
   multipol = records(stationfile_g)
-  multi = multipol.next() # 1 feature
+  #~ multi = multipol.next() # 1 feature
 
   for i, pt in enumerate(points):
     puntosOut_p.append(pt);
 
-  contadorInAnterior = 0; 
-
-  send2File(puntosIn_p,puntosOut_p)
   contadorIn = 0 ;
+  contadorInAnterior = 0; 
+  send2File(puntosIn_p,puntosOut_p)
   for j, pl in enumerate(multipol):
+    multi = pl;
     print "Area: " + str(j) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p))
     logger_g.info("Area: " + str(j) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p)))
     for i, pt in enumerate(puntosOut_p):
@@ -128,9 +128,11 @@ def checkPointInPolygon(puntosIn_p,puntosOut_p):
         del puntosOut_p[i]
         contadorIn = contadorIn + 1 
         #~ print "ContadorIn: " + str(contadorIn)
-    if ( contadorIn != contadorInAnterior ):
-      send2File(puntosIn_p,puntosOut_p)
-    contadorAnterior = contadorIn;
+        if ( contadorIn != contadorInAnterior ):
+          send2File(puntosIn_p,puntosOut_p)
+        contadorAnterior = contadorIn;
+  send2File(puntosIn_p,puntosOut_p)
+
           
 def send2File(puntosIn_p,puntosOut_p):
   outFileIn  = outputfile_g + "_in.shp";
