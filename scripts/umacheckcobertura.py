@@ -133,6 +133,36 @@ def checkPointInPolygon(puntosIn_p,puntosOut_p):
         contadorAnterior = contadorIn;
   send2File(puntosIn_p,puntosOut_p)
 
+
+def checkPointInPolygonv2(puntosIn_p,puntosOut_p):
+  points  = [pt for pt in records(inputfile_g)]
+  multipol = records(stationfile_g)
+  #~ multi = multipol.next() # 1 feature
+
+  for i, pt in enumerate(points):
+    puntosOut_p.append(pt);
+
+  send2File(puntosIn_p,puntosOut_p)
+  for i, pt in enumerate(points):
+  #~ for i, pt in enumerate(puntosOut_p):
+    point = shape(pt['geometry'])
+    print "Punto: " + str(i) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p))
+    logger_g.info("Punto: " + str(i) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p)))
+
+    multipol = records(stationfile_g)
+    for j, pl in enumerate(multipol):
+      multi = pl;
+      if ( j%1000 == 0 ):
+        print "Cheking polygon: " + str(j)
+        logger_g.info("Cheking polygon: " + str(j))
+
+      if point.within(shape(multi['geometry'])):
+        puntosIn_p.append(pt);
+        puntosOut_p.remove(pt);
+        send2File(puntosIn_p,puntosOut_p)
+        break;
+  send2File(puntosIn_p,puntosOut_p)
+
           
 def send2File(puntosIn_p,puntosOut_p):
   outFileIn  = outputfile_g + "_in.shp";
@@ -237,7 +267,7 @@ def main(argv):
   puntosIn  = []
   puntosOut = []
   
-  checkPointInPolygon(puntosIn,puntosOut);
+  checkPointInPolygonv2(puntosIn,puntosOut);
           
   #~ w.save('/tmp/test.shp')    
         
