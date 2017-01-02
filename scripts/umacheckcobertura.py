@@ -152,7 +152,7 @@ def checkPointInPolygonv2(puntosIn_p,puntosOut_p):
     multipol = records(stationfile_g)
     for j, pl in enumerate(multipol):
       multi = pl;
-      if ( j%1000 == 0 ):
+      if ( j%25000 == 0 ):
         print "Cheking polygon: " + str(j)
         logger_g.info("Cheking polygon: " + str(j))
 
