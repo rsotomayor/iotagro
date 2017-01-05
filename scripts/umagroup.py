@@ -112,10 +112,13 @@ def main(argv):
           strLine="";
           cntElem=0;
           for elem in row:
+            field = str(elem)
+            field=field.replace(",","")
+            field=field.replace("\"","")
             if cntElem < (len(row)-1):
-              strLine = strLine + str(elem) + ","  
+              strLine = strLine + field + ","  
             else:
-              strLine = strLine + str(elem) + "\n" 
+              strLine = strLine + field + "\n" 
             cntElem = cntElem + 1 ;
           strLine=strLine.replace("\"","")
           fuma.write(strLine);
@@ -128,7 +131,11 @@ def main(argv):
 
         #~ print "LEN " + str(len(row));
 
-        
+
+        if ( index_uma == 0 ):
+          row[len(row)-1] = 1;
+        else:
+          row[len(row)-1] = index_uma;
         
         if ( distance < radio_g ):
           pass;
@@ -146,7 +153,6 @@ def main(argv):
             index_uma = index_uma + 1 ;
             uma_r.append(row);
 
-        row[len(row)-1] = index_uma;
         unidades_r.append(row);
           
         longitudePuntoAnterior = longitudePunto 
@@ -170,10 +176,13 @@ def main(argv):
     strLine="";
     cntElem=0;
     for elem in uma:
+      field = str(elem)
+      field=field.replace(",","")
+      field=field.replace("\"","")
       if cntElem < (len(uma)-1):
-        strLine = strLine + str(elem) + ","  
+        strLine = strLine + field + ","  
       else:
-        strLine = strLine + str(elem) + "\n" 
+        strLine = strLine + field + "\n" 
       cntElem = cntElem + 1 ;
     strLine=strLine.replace("\"","")
     fuma.write(strLine);
@@ -192,10 +201,13 @@ def main(argv):
     strLine="";
     cntElem=0;
     for elem in row:
+      field = str(elem)
+      field=field.replace(",","")
+      field=field.replace("\"","")
       if cntElem < (len(row)-1):
-        strLine = strLine + str(elem) + ","  
+        strLine = strLine + field + ","  
       else:
-        strLine = strLine + str(elem) + "\n" 
+        strLine = strLine + field + "\n" 
       cntElem = cntElem + 1 ;
     strLine = strLine.replace("\"","")
     funidades.write(strLine);
