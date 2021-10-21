@@ -57,6 +57,8 @@ banda_g         = "2G"
 operador_g      = "entel"
 
 
+
+
 areacobertura_g = [ 
               { 
                 "entel":
@@ -349,9 +351,6 @@ def checkPointInPolygonv3(puntosIn_p,puntosOut_p):
   
 
   points  = [pt for pt in records(inputfile_g)]
-  
-  
-
 
   #~ multipol = records(stationfile_g)
   #~ multi = multipol.next() # 1 feature
@@ -376,10 +375,16 @@ def checkPointInPolygonv3(puntosIn_p,puntosOut_p):
 
     for k,station in enumerate(areacobertura_g[0][operador_g][banda_g]):
       #~ print station
-      stationfile_g = areacobertura_g[0][operador_g][banda_g][station][region]
+#      stationfile_g = areacobertura_g[0][operador_g][banda_g][station][region]
+#      stationfile_g=basedir_g+"/data/info/cobertura/CLARO_2G_1900_PAÍS_2019.shp";      
+      stationfile_g=basedir_g+"data/info/cobertura4326/CLARO_2G_850_PAÍS_2019.shp";      
+
       if os.path.exists(stationfile_g):
+		
         multipol = records(stationfile_g)
+        
         for j, pl in enumerate(multipol):
+			
           multi = pl;
           if ( j%25000 == 0 ):
             print("Cheking polygon: " + str(j))
@@ -408,6 +413,84 @@ def checkPointInPolygonv3(puntosIn_p,puntosOut_p):
         if flagin:
           flagin = False
           break;
+      else:
+        print("File " + stationfile_g + " no existe !!!")
+
+  send2File(puntosIn_p,puntosOut_p)
+
+
+
+def checkPointInPolygonv4(puntosIn_p,puntosOut_p):
+
+  print(inputfile_g);
+  
+
+  points  = [pt for pt in records(inputfile_g)]
+
+  #~ multipol = records(stationfile_g)
+  #~ multi = multipol.next() # 1 feature
+
+#~ data/comunicaciones/areacobertura/entel/2G/Cob_2G_1900_trim_XV_contour_region.shp
+
+
+  for i, pt in enumerate(points):
+    puntosOut_p.append(pt);
+
+
+  send2File(puntosIn_p,puntosOut_p)
+  for i, pt in enumerate(points):
+    point  = shape(pt['geometry'])
+    region = str(pt['properties']['Region'])
+    print("Region :" +  region)
+    
+    print("Punto: " + str(i+1) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p)))
+    logger_g.info("Punto: " + str(i+1) + " Puntos Out: " + str(len(puntosOut_p)) + " Puntos In: " + str(len(puntosIn_p)))
+
+    #~ print areacobertura_g[0]['entel']['2G'];
+
+    for k,station in enumerate(areacobertura_g[0][operador_g][banda_g]):
+      #~ print station
+#      stationfile_g = areacobertura_g[0][operador_g][banda_g][station][region]
+      stationfile_g=basedir_g+"/data/comunicaciones/areacobertura/cobertura2g.shp";      
+      if os.path.exists(stationfile_g):
+		
+        multipol = records(stationfile_g)
+        for j, pl in enumerate(multipol):
+          if ( j%25000 == 0 ):
+            print("j: "+str(j));        
+        
+        # ~ for j, pl in enumerate(multipol):
+			
+          # ~ multi = pl;
+          # ~ if ( j%25000 == 0 ):
+            # ~ print("Cheking polygon: " + str(j))
+            # ~ logger_g.info("Cheking polygon: " + str(j))
+          # ~ flagin = False;
+
+          # ~ try:
+            # ~ flagin = point.within(shape(multi['geometry']))
+          # ~ except(Exception, err):
+            # ~ print("myerror")
+
+          # ~ if flagin:
+            # ~ try:
+              # ~ puntosIn_p.append(pt);
+            # ~ except(Exception, err):
+              # ~ print("Error Punto IN")
+
+            # ~ try:
+              # ~ puntosOut_p.remove(pt);
+            # ~ except(Exception, err):
+              # ~ print("Error Punto Out")
+            
+            # ~ send2File(puntosIn_p,puntosOut_p)
+            # ~ break;
+
+        # ~ if flagin:
+          # ~ flagin = False
+          # ~ break;
+          
+          
       else:
         print("File " + stationfile_g + " no existe !!!")
 
