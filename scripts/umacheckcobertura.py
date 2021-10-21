@@ -51,7 +51,7 @@ outputfile_g    = "/dev/null"
 stationfile_g   = "/dev/null"
 logfile_g       = "/dev/null"
 radio_g         = 10.0
-basedir_g       ="/home/rsotomayor/rsotomayor@savtec.cl/workspace/iotagro/"
+basedir_g       ="/home/ubuntu/workspace/iotagro/"
 logger_g        = logging.getLogger("umacheckcobertura")
 banda_g         = "2G"
 operador_g      = "entel"
@@ -351,7 +351,7 @@ def checkPointInPolygonv3(puntosIn_p,puntosOut_p):
   points  = [pt for pt in records(inputfile_g)]
   
   
-  return;
+
 
   #~ multipol = records(stationfile_g)
   #~ multi = multipol.next() # 1 feature
