@@ -1,0 +1,5 @@
+${HOME}/workspace/iotagro/scripts/umacheckcobertura.py --input=${HOME}/workspace/iotagro/scripts/cobertura2gout.data/cobertura2gout.shp --station=${HOME}/workspace/iotagro/data/comunicaciones/areacobertura/cobertura2g.shp --output=${HOME}/workspace/iotagro/data/work/cobertura2g-rv --logfile=${HOME}/tmp/cobertura2g.log > /dev/null 2>&1 &
+
+
+umacheckcobertura.py --input=${HOME}/rsotomayor@savtec.cl/workspace/iotagro/scripts/cobertura2gout.data/cobertura2gout.shp --station=${HOME}/rsotomayor@savtec.cl/workspace/iotagro/data/comunicaciones/areacobertura/cobertura2g.shp --output=${HOME}/rsotomayor@savtec.cl/workspace/iotagro/data/work/cobertura2g-rv --logfile=${HOME}/tmp/cobertura2g.log
+

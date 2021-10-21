@@ -65,158 +65,177 @@ def now():
 def main(argv):
   global basedir_g
   try:
-    opts, args = getopt.getopt(argv,"h:i:o:u:r",["input=","output=","unidades=","radio="])
+    opts, args = getopt.getopt(argv,"h:i:b:o:l",["input=","basedir=","output=","linkbudget="])
   except getopt.GetoptError:
-    print 'umagroup.py --input=<inputfile> --output=<outputfile> --unidades=<unidadesfile> --radio=<fbudget>'
+    print 'umagroup.py --input=<inputfile> --output=<stationlist> --basedir=<basedir> --linkbudget=<fbudget>'
     sys.exit(2)
   for opt, arg in opts:
     if opt == '-h':
-      print 'umagroup.py --input=<inputfile> --output=<outputfile> --unidades=<unidadesfile> --radio=<fbudget>'
+      print 'umagroup.py --input=<inputfile> --output=<stationlist> --basedir=<basedir> --linkbudget=<fbudget>'
       sys.exit()
+    elif opt in ("-b", "--basedir"):
+      basedir_g = arg
     elif opt in ("-i", "--input"):
       inputfile_g = arg
-    elif opt in ("-u", "--unidades"):
-      unidadesfile_g = arg
-    elif opt in ("-o", "--output"):
+    elif opt in ("-s", "--output"):
       outputfile_g = arg
-    elif opt in ("-r", "--radio"):
+    elif opt in ("-f", "--linkbudget"):
       radio_g = float(arg);
 
 
   print "INPUT FILE:  " + inputfile_g
   print "OUTPUT FILE: " + outputfile_g
-  print "UNIDADES FILE: " + unidadesfile_g
+  print "BASEDIR:     " + basedir_g
   print "RADIO :      " + str(radio_g)
   contadorPuntos = 0 ;
 
+  inputfilenew_g = 'new_' + inputfile_g ;
 
   f = open(inputfile_g, 'rt')
-  uma_r = []
-  unidades_r = []
+  cluster_r = []
   
   longitudePuntoAnterior = 0 
   latitudePuntoAnterior  = 0
-  fuma = open(outputfile_g, 'w')
+  fcluster  = open(outputfile_g, 'w')
+  uma = 0 ;
 
   try:
       contadorPuntos = 0 ;
       reader = csv.reader(f)
       firstline = True
-      
-      index_uma = 0 ;
-      
       for row in reader:
         if firstline:    #skip first line
-          unidades_r.append(row);
           firstline = False
           strLine="";
           cntElem=0;
+          row[3] = "UMA"
           for elem in row:
-            field = str(elem)
-            field=field.replace(",","")
-            field=field.replace("\"","")
             if cntElem < (len(row)-1):
-              strLine = strLine + field + ","  
+              strLine = strLine + str(elem) + ","  
             else:
-              strLine = strLine + field + "\n" 
+              strLine = strLine + str(elem) + "\n" 
             cntElem = cntElem + 1 ;
-          strLine=strLine.replace("\"","")
-          fuma.write(strLine);
+          strLine.replace("\"","")
+          fcluster.write(strLine);
           continue
+
         longitudePunto=float(row[0])
         latitudePunto=float(row[1])
         
         distance = haversine(longitudePunto,latitudePunto,longitudePuntoAnterior,latitudePuntoAnterior)
-        print str(contadorPuntos) + " DISTANTCE: "+str(distance)
+        #~ print "DISTANTCE: "+str(distance)
 
-        #~ print "LEN " + str(len(row));
-
-
-        if ( index_uma == 0 ):
-          row[len(row)-1] = 1;
-        else:
-          row[len(row)-1] = index_uma;
         
         if ( distance < radio_g ):
           pass;
         else:
           flagIn = False
-          for uma in uma_r:
-            lon = float(uma[0]);
-            lat = float(uma[1]);
+          for cluster in cluster_r:
+            lon = float(cluster[0]);
+            lat = float(cluster[1]);
             distance = haversine(longitudePunto,latitudePunto,lon,lat)
             if ( distance < radio_g ):
               flagIn = True
-            
-              
-          if flagIn == False:
-            index_uma = index_uma + 1 ;
-            uma_r.append(row);
+              break
 
-        unidades_r.append(row);
-          
-        longitudePuntoAnterior = longitudePunto 
-        latitudePuntoAnterior  = latitudePunto
-        
+          if flagIn == False:
+            uma = uma + 1 ;
+            row[3] = uma
+            cluster_r.append(row);
+            longitudePuntoAnterior = longitudePunto
+            latitudePuntoAnterior  = latitudePunto
+            print "UMA :" + str(uma)
+            #~ print row
 
         contadorPuntos = contadorPuntos + 1
   finally:
-      f.close()
+    f.close()
 
   print "Puntos "+ str(contadorPuntos)
 
-  contadorUma = 0 
+  contadorCluster = 0 
 
-  firstline = True
-  for uma in uma_r:
-    if firstline:    #skip first line
-      firstline = False
-      continue
-    contadorUma = contadorUma + 1 ;
+  for cluster in cluster_r:
+    contadorCluster = contadorCluster + 1 ;
     strLine="";
     cntElem=0;
-    for elem in uma:
-      field = str(elem)
-      field=field.replace(",","")
-      field=field.replace("\"","")
-      if cntElem < (len(uma)-1):
-        strLine = strLine + field + ","  
+    for elem in cluster:
+      if cntElem < (len(cluster)-1):
+        strLine = strLine + str(elem) + ","  
       else:
-        strLine = strLine + field + "\n" 
+        strLine = strLine + str(elem) + "\n" 
       cntElem = cntElem + 1 ;
-    strLine=strLine.replace("\"","")
-    fuma.write(strLine);
+    strLine.replace('"','')
+    fcluster.write(strLine);
   
-  fuma.close()
-
-  print "Puntos "+ str(contadorUma)
+  fcluster.close()
 
 
-  contadorUnidades = 0 
-  funidades = open(unidadesfile_g, 'w')
+  print "Cluster Puntos "+ str(contadorCluster)
 
 
-  for row in unidades_r:
-    contadorUnidades = contadorUnidades + 1 ;
-    strLine="";
-    cntElem=0;
-    for elem in row:
-      field = str(elem)
-      field=field.replace(",","")
-      field=field.replace("\"","")
-      if cntElem < (len(row)-1):
-        strLine = strLine + field + ","  
-      else:
-        strLine = strLine + field + "\n" 
-      cntElem = cntElem + 1 ;
-    strLine = strLine.replace("\"","")
-    funidades.write(strLine);
+  f = open(inputfile_g, 'rt')
+  finputnew = open(inputfilenew_g, 'w')
+
+
+  try:
+      contadorPuntos = 0 ;
+      reader = csv.reader(f)
+      for row in reader:
+        if ( contadorPuntos == 0 ):
+          strLine="UMA,";
+          cntElem=0;
+          for elem in row:
+            if cntElem < (len(row)-1):
+              strLine = strLine + str(elem) + ","  
+            else:
+              strLine = strLine + str(elem)  + "," 
+              strLine = strLine + "DISTANCE" + "\n" 
+            cntElem = cntElem + 1 ;
+          strLine.replace("\"","")
+          finputnew.write(strLine);
+        else:
+          longitudePunto=float(row[0])
+          latitudePunto=float(row[1])
+          contadorCluster = 0 
+          distanceMin     = 10000;
+          for cluster in cluster_r:
+            lon = float(cluster[0]);
+            lat = float(cluster[1]);
+            distance = haversine(longitudePunto,latitudePunto,lon,lat)
+            if ( distance < distanceMin):
+              distanceMin   = distance ;
+              umaEncontrada = cluster[3];
+            contadorCluster = contadorCluster + 1 
+
+          print "UMA ENCONTRADA " + str(umaEncontrada)  + "DISTANCE " + str(distanceMin)
+
+          strLine=str(umaEncontrada) + ",";
+          cntElem=0;
+          for elem in row:
+            if cntElem < (len(row)-1):
+              strLine = strLine + str(elem) + ","  
+            else:
+              strLine = strLine + str(elem) + ","  
+              strLine = strLine + str(distanceMin) + "\n" 
+
+
+            cntElem = cntElem + 1 ;
+          strLine.replace("\"","")
+          finputnew.write(strLine);
+                      
+            
+        contadorPuntos = contadorPuntos + 1
+        print "Punto "+ str(contadorPuntos)
+
+  finally:
+    f.close()
+        
+  finputnew.close();
   
-  funidades.close()
 
-  print "Unidades "+ str(contadorUnidades)      
-      
-      
+    
+  
   print "QUIT"
 
 
